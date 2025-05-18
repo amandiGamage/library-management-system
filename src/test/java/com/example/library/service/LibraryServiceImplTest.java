@@ -34,10 +34,13 @@ public class LibraryServiceImplTest {
         Book book = new Book();
         book.setTitle("Clean Code");
 
+        // Mock behavior: return the same book on save
         when(bookRepository.save(book)).thenReturn(book);
 
         Book saved = libraryService.registerBook(book);
+        // Assert the returned book title is as expected
         assertEquals("Clean Code", saved.getTitle());
+        // Verify that save was called once
         verify(bookRepository).save(book);
     }
 }
