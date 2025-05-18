@@ -78,21 +78,18 @@ src
 
 ## Running Tests
 
-\`\`\`bash
+```bash
 # Clean build and run all tests with coverage
 mvn clean verify
-\`\`\`
+```
 
-### View test coverage report
+### View Test Coverage Report
 
-After running the above command, open:
+After running the above command, open the following file in your browser to view the code coverage report:
 
-\`\`\`
+```
 target/site/jacoco/index.html
-\`\`\`
-
-in your browser to view code coverage.
-
+```
 ---
 
 # Library API Documentation
