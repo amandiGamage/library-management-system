@@ -9,4 +9,5 @@ public interface LibraryService {
     public Book registerBook(Book book);
     public List<Book> getAllBooks();
     public Borrower registerBorrower(Borrower borrower);
+    public String borrowBook(Long borrowerId, Long bookId);
 }
