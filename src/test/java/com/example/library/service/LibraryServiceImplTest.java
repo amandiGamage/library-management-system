@@ -46,14 +46,14 @@ public class LibraryServiceImplTest {
     @Test
     void testRegisterBook() {
         Book book = new Book();
-        book.setTitle("Clean Code");
+        book.setTitle("Test 1");
 
         // Mock behavior: return the same book on save
         when(bookRepository.save(book)).thenReturn(book);
 
         Book saved = libraryService.registerBook(book);
         // Assert the returned book title is as expected
-        assertEquals("Clean Code", saved.getTitle());
+        assertEquals("Test 1", saved.getTitle());
         // Verify that save was called once
         verify(bookRepository).save(book);
     }
