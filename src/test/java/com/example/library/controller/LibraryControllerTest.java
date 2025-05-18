@@ -1,6 +1,7 @@
 package com.example.library.controller;
 
 import com.example.library.model.Book;
+import com.example.library.model.Borrower;
 import com.example.library.service.LibraryService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -64,5 +65,23 @@ public class LibraryControllerTest {
                         .content("{\"title\":\"Sample\",\"author\":\"Author\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("Sample"));
+    }
+
+    /**
+     * Test POST /borrowers to register a new borrower
+     */
+    @Test
+    void testRegisterBorrower() throws Exception {
+        Borrower borrower = new Borrower();
+        borrower.setId(1L);
+        borrower.setName("John");
+
+        Mockito.when(libraryService.registerBorrower(any(Borrower.class))).thenReturn(borrower);
+
+        mockMvc.perform(post("/borrowers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\":\"John\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("John"));
     }
 }
