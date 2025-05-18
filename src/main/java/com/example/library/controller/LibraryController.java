@@ -1,6 +1,7 @@
 package com.example.library.controller;
 
 import com.example.library.model.Book;
+import com.example.library.model.Borrower;
 import com.example.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,17 @@ public class LibraryController {
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = libraryService.getAllBooks();
         return ResponseEntity.ok(books);
+    }
+
+    /**
+     * Registers a new borrower.
+     *
+     * @param borrower The borrower object to be registered.
+     * @return The saved borrower with HTTP 200 OK.
+     */
+    @PostMapping("/borrowers")
+    public ResponseEntity<Borrower> registerBorrower(@RequestBody Borrower borrower) {
+        Borrower savedBorrower = libraryService.registerBorrower(borrower);
+        return ResponseEntity.ok(savedBorrower);
     }
 }
