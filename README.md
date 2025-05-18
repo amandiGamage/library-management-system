@@ -58,7 +58,7 @@ src
      └── java/com/example/library
          ├── controller         # Controller layer tests
          ├── service            # Service layer tests
-         
+         └── repository         # Repository tests (if any)
 \`\`\`
 
 ---
