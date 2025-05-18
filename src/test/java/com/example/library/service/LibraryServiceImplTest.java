@@ -1,13 +1,18 @@
 package com.example.library.service;
 
 import com.example.library.model.Book;
+import com.example.library.model.Borrower;
+import com.example.library.model.BorrowingRecord;
 import com.example.library.repository.BookRepository;
+import com.example.library.repository.BorrowerRepository;
+import com.example.library.repository.BorrowingRecordRepository;
 import com.example.library.service.impl.LibraryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -17,6 +22,12 @@ public class LibraryServiceImplTest {
     // Mocked dependencies
     @Mock
     private BookRepository bookRepository;
+
+    @Mock
+    private BorrowerRepository borrowerRepository;
+
+    @Mock
+    private BorrowingRecordRepository borrowingRecordRepository;
 
     // The service class with mocked dependencies injected
     @InjectMocks
@@ -61,5 +72,29 @@ public class LibraryServiceImplTest {
 
         // Assert that the result has size 2
         assertEquals(2, result.size());
+    }
+
+    /**
+     * Test case for borrowing a book successfully
+     */
+    @Test
+    void testBorrowBookSuccess() {
+        Book book = new Book();
+        book.setId(1L);
+        book.setBorrowed(false); // Book is available
+
+        Borrower borrower = new Borrower();
+        borrower.setId(1L);
+
+        // Mock repository methods
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
+        when(borrowerRepository.findById(1L)).thenReturn(Optional.of(borrower));
+        when(bookRepository.save(book)).thenReturn(book);
+        when(borrowingRecordRepository.save(any())).thenReturn(new BorrowingRecord());
+
+        String result = libraryService.borrowBook(1L, 1L);
+
+        // Assert expected success message
+        assertEquals("Book borrowed successfully.", result);
     }
 }
