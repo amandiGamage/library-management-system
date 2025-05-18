@@ -4,10 +4,9 @@ import com.example.library.model.Book;
 import com.example.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * REST controller for managing library-related operations such as
@@ -29,5 +28,16 @@ public class LibraryController {
     public ResponseEntity<Book> registerBook(@RequestBody Book book) {
         Book savedBook = libraryService.registerBook(book);
         return ResponseEntity.ok(savedBook);
+    }
+
+    /**
+     * Retrieves the list of all books.
+     *
+     * @return List of books with HTTP 200 OK.
+     */
+    @GetMapping("/books")
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = libraryService.getAllBooks();
+        return ResponseEntity.ok(books);
     }
 }
