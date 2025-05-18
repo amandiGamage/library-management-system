@@ -1,5 +1,6 @@
 package com.example.library.service;
 
+import com.example.library.exception.BookAlreadyBorrowedException;
 import com.example.library.model.Book;
 import com.example.library.model.Borrower;
 import com.example.library.model.BorrowingRecord;
@@ -96,5 +97,26 @@ public class LibraryServiceImplTest {
 
         // Assert expected success message
         assertEquals("Book borrowed successfully.", result);
+    }
+
+    /**
+     * Test case for borrowing an already borrowed book
+     */
+    @Test
+    void testBorrowBookAlreadyBorrowed() {
+        Book book = new Book();
+        book.setId(1L);
+        book.setBorrowed(true); // Book is already borrowed
+
+        Borrower borrower = new Borrower();
+        borrower.setId(1L);
+
+        // Mock repository methods
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
+        when(borrowerRepository.findById(1L)).thenReturn(Optional.of(borrower));
+
+        // Expect an exception to be thrown
+        assertThrows(BookAlreadyBorrowedException.class,
+                () -> libraryService.borrowBook(1L, 1L));
     }
 }
