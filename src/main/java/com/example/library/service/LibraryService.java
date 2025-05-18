@@ -10,4 +10,5 @@ public interface LibraryService {
     public List<Book> getAllBooks();
     public Borrower registerBorrower(Borrower borrower);
     public String borrowBook(Long borrowerId, Long bookId);
+    public String returnBook(Long borrowerId, Long bookId);
 }

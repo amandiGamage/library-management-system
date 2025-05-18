@@ -95,4 +95,40 @@ public class LibraryServiceImpl implements LibraryService {
 
         return "Book borrowed successfully.";
     }
+
+    /**
+     * Handles the return of a borrowed book.
+     *
+     * @param borrowerId ID of the borrower (used for verification/future extension)
+     * @param bookId     ID of the book to return
+     * @return Success message
+     * @throws ResourceNotFoundException If book is not found
+     * @throws IllegalStateException If the book is not borrowed or no borrowing record exists
+     */
+    @Transactional
+    public String returnBook(Long borrowerId, Long bookId) {
+        // Retrieve book or throw exception if not found
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with ID: " + bookId));
+
+        // Ensure the book is currently borrowed
+        if (!book.isBorrowed()) {
+            throw new IllegalStateException("Book with ID " + bookId + " is not currently borrowed.");
+        }
+
+        // Mark the book as returned
+        book.setBorrowed(false);
+        bookRepository.save(book);
+
+        // Find the active borrowing record and update return date
+        BorrowingRecord record = borrowingRecordRepository.findAll().stream()
+                .filter(r -> r.getBook().getId().equals(bookId) && r.getReturnDate() == null)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("No active borrowing record found for book ID: " + bookId));
+
+        record.setReturnDate(LocalDate.now());
+        borrowingRecordRepository.save(record);
+
+        return "Book returned successfully.";
+    }
 }
