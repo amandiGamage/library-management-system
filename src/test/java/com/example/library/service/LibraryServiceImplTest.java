@@ -119,4 +119,29 @@ public class LibraryServiceImplTest {
         assertThrows(BookAlreadyBorrowedException.class,
                 () -> libraryService.borrowBook(1L, 1L));
     }
+
+    /**
+     * Test case for returning a borrowed book successfully
+     */
+    @Test
+    void testReturnBookSuccess() {
+        Book book = new Book();
+        book.setId(1L);
+        book.setBorrowed(true); // Book is borrowed
+
+        BorrowingRecord record = new BorrowingRecord();
+        record.setBook(book);
+        record.setReturnDate(null); // Not yet returned
+
+        // Mock repository methods
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
+        when(bookRepository.save(book)).thenReturn(book);
+        when(borrowingRecordRepository.findAll()).thenReturn(List.of(record));
+        when(borrowingRecordRepository.save(record)).thenReturn(record);
+
+        String result = libraryService.returnBook(1L, 1L);
+
+        // Assert expected success message
+        assertEquals("Book returned successfully.", result);
+    }
 }
