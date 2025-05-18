@@ -54,5 +54,16 @@ public class LibraryController {
         return ResponseEntity.ok(savedBorrower);
     }
 
-
+    /**
+     * Borrows a book for a specific borrower.
+     *
+     * @param borrowerId The ID of the borrower.
+     * @param bookId The ID of the book to be borrowed.
+     * @return Success message with HTTP 200 OK.
+     */
+    @PostMapping("/borrowers/{borrowerId}/books/{bookId}/borrow")
+    public ResponseEntity<String> borrowBook(@PathVariable Long borrowerId, @PathVariable Long bookId) {
+        String message = libraryService.borrowBook(borrowerId, bookId); // Will throw exceptions if needed
+        return ResponseEntity.ok(message);
+    }
 }
