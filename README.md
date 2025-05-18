@@ -29,14 +29,16 @@ http://localhost:8080/api
 - **Success Response**:
   - `201 Created`
   - Body: created book object
-  - Example: 
-{
-    "id": 1,
-    "isbn": "9781234567890",
-    "title": "Test 1",
-    "author": "Robert C. Martin",
-    "borrowed": false
-}
+  - Example:
+  ```json 
+  {
+      "id": 1,
+      "isbn": "9781234567890",
+      "title": "Test 1",
+      "author": "Robert C. Martin",
+      "borrowed": false
+  }
+  ```
 
 ---
 
@@ -48,23 +50,24 @@ http://localhost:8080/api
   - `200 OK`
   - Body: list of books
   - Example: 
-
-[
-    {
-        "id": 1,
-        "isbn": "9781234567890",
-        "title": "Clean Code",
-        "author": "Robert C. Martin",
-        "borrowed": false
-    },
-    {
-        "id": 2,
-        "isbn": "9781234567890",
-        "title": "Test 1",
-        "author": "Robert C. Martin",
-        "borrowed": false
-    }
-]
+  ```json
+  [
+      {
+          "id": 1,
+          "isbn": "9781234567890",
+          "title": "Clean Code",
+          "author": "Robert C. Martin",
+          "borrowed": false
+      },
+      {
+          "id": 2,
+          "isbn": "9781234567890",
+          "title": "Test 1",
+          "author": "Robert C. Martin",
+          "borrowed": false
+      }
+  ]
+  ```
 
 ## Borrower Endpoints
 
@@ -83,11 +86,13 @@ http://localhost:8080/api
   - `201 Created`
   - Body: created borrower object
   - Example:
-{
-    "id": 3,
-    "name": "Alice Johnson",
-    "email": "alice@example.com"
-}
+  ```json
+  {
+      "id": 3,
+      "name": "Alice Johnson",
+      "email": "alice@example.com"
+  }
+  ```
 
 ---
 
