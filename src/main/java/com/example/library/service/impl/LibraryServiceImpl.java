@@ -6,6 +6,8 @@ import com.example.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Service implementation for library operations such as registering books/borrowers,
  * borrowing and returning books.
@@ -24,4 +26,14 @@ public class LibraryServiceImpl implements LibraryService {
     public Book registerBook(Book book) {
         return bookRepository.save(book);
     }
+
+    /**
+     * Retrieves all books in the system.
+     *
+     * @return List of all books
+     */
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
+    }
+
 }
