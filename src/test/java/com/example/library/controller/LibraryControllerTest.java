@@ -14,6 +14,10 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import org.springframework.http.MediaType;
+import static org.mockito.ArgumentMatchers.any;
+
 
 /**
  * This class tests the LibraryController endpoints using @WebMvcTest
@@ -42,5 +46,23 @@ public class LibraryControllerTest {
         mockMvc.perform(get("/books"))
                 .andExpect(status().isOk()) // Expect HTTP 200
                 .andExpect(jsonPath("$.length()").value(1)); // Expect 2 items in the JSON array
+    }
+
+    /**
+     * Test POST /books to register a new book
+     */
+    @Test
+    void testRegisterBook() throws Exception {
+        Book book = new Book();
+        book.setId(1L);
+        book.setTitle("Sample");
+
+        Mockito.when(libraryService.registerBook(any(Book.class))).thenReturn(book);
+
+        mockMvc.perform(post("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\":\"Sample\",\"author\":\"Author\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("Sample"));
     }
 }
