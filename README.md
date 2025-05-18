@@ -21,9 +21,9 @@ http://localhost:8080/api
 - **Request Body**:
 ```json
 {
-  "title": "Effective Java",
-  "author": "Joshua Bloch",
-  "isbn": "978-0134685991"
+  "title": "Test 1",
+  "author": "Robert C. Martin",
+  "isbn": "9781234567890"
 }
 ```
 - **Success Response**:
