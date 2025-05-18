@@ -110,7 +110,7 @@ http://localhost:8080/api
 
 ---
 
-### 🔁 Return a Book
+### Return a Book
 
 - **URL**: `/borrowers/{borrowerId}/return/{bookId}`
 - **Method**: `POST`
@@ -120,7 +120,7 @@ http://localhost:8080/api
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Use Postman or cURL to test endpoints:
 
@@ -134,7 +134,7 @@ curl -X POST http://localhost:8080/api/books \
 
 ---
 
-## 💬 Error Codes
+## Error Codes
 
 - `400 Bad Request` – Invalid input
 - `404 Not Found` – Resource not found
